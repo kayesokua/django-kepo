@@ -1,0 +1,68 @@
+{% extends "myjournal/base.html" %}
+
+{% block content %}
+    <h2 class="mt-5">Evening Journal</h2>
+
+    <div class="row">
+        <div class="col-md-8">
+            {% if error %}<div class="alert alert-danger" role="alert">{{ error }}</div>{% endif %}
+            <form method="POST">
+            {% csrf_token %}
+            <div class="row g-3">
+                <div class="col">
+                    <input type="text" name="title" class="form-control form-control-lg" id="id_title" value="Post for {{ today|date:"D, d F Y" }}" 
+                    placeholder="Title here" required>
+                </div>
+                <div class="col">
+                    <input type="datetime-local" class="form-control form-control-lg mb-3" name="start_time" value="{{today_datetimelocal}}" 
+                        max="{{ today_datetimelocal }}"
+                        min="{{ today_datetimelocal_min }}"required="" id="id_start_time">
+                </div>
+            </div>    
+            <div class="col-md-12">
+                <p class="lead">3 things I did great today</p>
+                <div class="form-group mb-3">
+                    <input type="text" name="q3a" class="form-control form-control-lg" id="id_q3a">
+                </div>
+                <div class="form-group mb-3">
+                    <input type="text" name="q3b" class="form-control form-control-lg" id="id_q3a">
+                </div>
+                <div class="form-group mb-3">
+                    <input type="text" name="q3c" class="form-control form-control-lg" id="id_q3a">
+                </div>
+
+                <p class="lead">3 things that piqued my curiosity today</p>
+                <div class="form-group mb-3">
+                    <input type="text" name="q4a" class="form-control form-control-lg" id="id_q4a">
+                </div>
+                <div class="form-group mb-3">
+                    <input type="text" name="q4b" class="form-control form-control-lg" id="id_q4a">
+                </div>
+                <div class="form-group mb-3">
+                    <input type="text" name="q4c" class="form-control form-control-lg" id="id_q4a">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-3 lead">This evening, I feel:</label>
+                <div class="col-sm-9">
+                <select name="mood" id="id_mood" class="form-select form-select-lg" required>
+                    <option value="0">Neutral 😶</option>
+                    <option value="1">Silly 🤪</option>
+                    <option value="2">Dreamy 💭</option>
+                    <option value="3">Creative 👨‍🎤</option>
+                    <option value="4">Active 💪</option>
+                </select>
+            </div>
+            <div class="col-md-12 mb-5">
+                <button type="submit" class="btn btn-lg text-white btn-info">Save Entry</button>
+            </div>
+            </form>
+    </div> 
+
+    <script> 
+        function Access() { 
+        // Accessing input element type value 
+        var a = document.getElementById( "start_time").autocomplete;}
+    </script> 
+
+{% endblock %}

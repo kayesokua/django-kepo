@@ -1,0 +1,52 @@
+{% extends "feed/base.html" %}
+
+{% block content %}
+{% if error %}<div class="alert alert-danger" role="alert">{{ error }}</div>{% endif %}
+{% if success %}<div class="alert alert-success" role="alert">{{ success }}</div>{% endif %}
+  
+  {% load humanize %}
+  
+  <h1 class="display-6 my-5">Get Inspired <i class="bi bi-lightning"></i></h1> 
+  <div class="row" data-masonry='{"percentPosition": true }'>
+    {% for post in post_list %}
+    <!-- the feed post starts here -->
+    <div class="col-sm-6 col-lg-4 mb-4">
+      <div class="card shadow-sm">
+        
+        <div class="card-body">
+        
+        <h3 class="feedpost-title mt-1 mb-1"><a href="{% url 'post_detail' post.author post.slug  %}">{{ post.title|safe }}</a></h3>
+
+        <p class="card-text text-center"><small>Published {{ post.created_on | naturaltime }} {{readtime_post}}
+        
+         by <a href="{% url 'post_by_user' post.author %}">{{ post.author }}</a> | {{post.get_read_time}}</small>
+        </p>
+               
+
+        <img class="bd-placeholder-img card-img-top" width="100%" height="auto" src="{{ post.img.url }}" style="border: 1px solid #ccc"/>
+              
+        
+          
+      
+        </div>
+      </div>
+    </div>
+    <!-- and the feed post ends here -->
+    {% endfor %}
+
+  </div>
+
+{% if is_paginated %}
+<nav aria-label="Page navigation conatiner"></nav>
+<ul class="pagination justify-content-center">
+  {% if page_obj.has_previous %}
+  <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+  {% endif %}
+  {% if page_obj.has_next %}
+  <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+
+  {% endif %}
+</ul>
+</nav>
+{% endif %}
+{% endblock %}

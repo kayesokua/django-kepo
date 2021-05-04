@@ -1,0 +1,14 @@
+{% extends 'myjournal/base.html' %}
+
+{% block title %}
+Calendar
+{% endblock %}
+
+{% block content %}
+<div class="clearfix">
+	<a class="btn btn-lg btn-info left" href="{% url 'myjournal:calendar' %}?{{ prev_month }}"> Previous Month </a>
+	<a class="btn btn-lg btn-info right" href="{% url 'myjournal:calendar' %}?{{ next_month }}"> Next Month </a>
+</div>
+
+{{ calendar }}
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends "myjournal/base.html" %}
+
+{% block content %}
+    <h2 class="mt-5">Update Morning Entry</h2>
+
+    <div class="row">
+        <div class="col-md-8">
+            {% if error %}<div class="alert alert-danger" role="alert">{{ error }}</div>{% endif %}
+            <form method="POST">
+            {% csrf_token %}
+            <div class="row g-3">
+                <div class="col">
+                    <input type="text" name="title" class="form-control form-control-lg" id="id_title" value="Post for {{ today|date:"D, d F Y" }}" 
+                    placeholder="Title here" required>
+                </div>
+                <div class="col">
+                    <input type="datetime-local" class="form-control form-control-lg mb-3" name="start_time" value="{{morningjournal.start_time}}" 
+                        max="{{ today_datetimelocal }}"
+                        min="{{ today_datetimelocal_min }}"required="" id="id_start_time">
+                </div>
+            </div>    
+            <div class="col-md-12">
+                <p class="lead">3 things I can start with what I know</p>
+                <div class="form-group mb-3">
+                    <input type="text" name="q1a" class="form-control form-control-lg" id="id_q1a" value="{{morningjournal.q1a}}">
+                </div>
+                <div class="form-group mb-3">
+                    <input type="text" name="q1b" class="form-control form-control-lg" id="id_q1a" value="{{morningjournal.q1b}}">
+                </div>
+                <div class="form-group mb-3">
+                    <input type="text" name="q1c" class="form-control form-control-lg" id="id_q1a" value="{{morningjournal.q1c}}">
+                </div>
+
+                <p class="lead">3 things I want to continue learning today</p>
+                <div class="form-group mb-3">
+                    <input type="text" name="q2a" class="form-control form-control-lg" id="id_q2a" value="{{morningjournal.q2a}}">
+                </div>
+                <div class="form-group mb-3">
+                    <input type="text" name="q2b" class="form-control form-control-lg" id="id_q2a" value="{{morningjournal.q2b}}">
+                </div>
+                <div class="form-group mb-3">
+                    <input type="text" name="q2c" class="form-control form-control-lg" id="id_q2a" value="{{morningjournal.q2c}}">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-3 lead">This morning, I feel:</label>
+                <div class="col-sm-9">
+                <select name="mood" id="id_mood" class="form-select form-select-lg" required selected="selected">
+                    <option value="0" {% if morningjournal.mood == 0 %} selected {% endif %}>Neutral 😶</option>
+                    <option value="1" {% if morningjournal.mood == 1 %} selected {% endif %}>Silly 🤪</option>
+                    <option value="2" {% if morningjournal.mood == 2 %} selected {% endif %}>Dreamy 💭</option>
+                    <option value="3" {% if morningjournal.mood == 3 %} selected {% endif %}>Creative 👨‍🎤</option>
+                    <option value="4" {% if morningjournal.mood == 4 %} selected {% endif %}>Active 💪</option>
+                </select>
+            </div>
+            <div class="col-md-12 mb-5">
+                <button type="submit" class="btn btn-lg text-white btn-info">Update</button>
+                <button type="button" class="btn btn-lg text-white btn-danger" onclick="$('#delete').click()">Delete</button>
+            </div>
+            </form>
+            
+            <form style='display: none;' method="POST" action="{% url 'myjournal:morning_delete' morningjournal.id %}">
+            {% csrf_token %}
+            
+                <button id="delete" type="submit">Delete</button>
+            </form>
+    </div> 
+
+
+{% endblock %}

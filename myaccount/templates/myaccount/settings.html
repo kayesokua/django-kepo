@@ -1,0 +1,19 @@
+{% extends "myaccount/base.html" %}
+
+{% block content %}
+
+ <div class="row">
+    <div class="col-md-8">
+        <p class="display-6 my-5">My Account</p>
+        <p class="my-5">Member since {{user.date_joined}}</p>
+
+        <p class="my-5"><a href="#" onclick="$('#sign_out_user').click()">Sign Out</a></p>
+            <form style='display: none;' method="POST" action="{% url 'sign_out' %}">
+                {% csrf_token %}
+                <button id="sign_out_user" type="submit">Logout</button>
+            </form>
+    </div>
+</div>
+   
+{% endblock %}
+

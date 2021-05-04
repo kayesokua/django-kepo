@@ -1,0 +1,46 @@
+{% extends "feed/base.html" %}
+
+{% block content %}
+ <div class="row my-5">
+    <div class="col-md-8">
+        <p class="display-6 mb-3">@{{ author }}</p>
+    </div>
+     <div class="col-md-8 mb-3">
+
+        <h3 class="my-2"><i class="bi bi-eye"></i> Published </h3>
+        <ul>
+            {% if posts %}
+                {% for post in posts %}
+                <li><a href="{% url 'post_detail' post.author post.slug  %}" target="_blank">{{ post.title }}</a>
+                    {% if user.is_authenticated and user == post.author %} | 
+                        <a href="{% url 'post_update' post.author post.slug %}">edit post</a>
+                    {% endif %}
+                </li>
+                {% endfor %}        
+            {% else %}
+            <li>{{ post.author }} has not published anything yet.</li>
+        {% endif %}
+      </ul>
+    </div>
+    {% if user.is_authenticated and user == draft.author %}
+     <div class="col-md-8">
+      <h3 class="my-2"><i class="bi bi-eye-slash"></i> Drafted ({{drafts.count}}) </h3>
+        <ul>
+            {% if drafts %}
+                {% for draft in drafts %}
+                <li><a href="{% url 'post_detail' draft.author draft.slug  %}" target="_blank">{{ draft.title }}</a>
+                     |
+                        <a href="{% url 'post_update' draft.author draft.slug %}">Edit draft</a>
+                </li>
+                {% endfor %}        
+            {% else %}
+            <li>{{ post.author }} has not published anything yet.</li>
+            {% endif %}
+    
+      </ul>
+   </div>
+    {% endif %}
+
+   </div>
+{% endblock %}
+

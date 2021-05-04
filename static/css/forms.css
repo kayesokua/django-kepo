@@ -1,0 +1,19 @@
+select#id_mood option[value="0"] {
+    background-image: url('../images/creative.png');
+}
+
+select#id_mood option[value="1"] {
+    background-image: url('../images/creative.png');
+}
+
+select#id_mood option[value="2"] {
+    background-image: url('../images/creative.png');
+}
+
+select#id_mood option[value="3"] {
+    background-image: url('../images/creative.png');
+}
+
+select#id_mood option[value="4"] {
+    background-image: url('../images/creative.png');
+}

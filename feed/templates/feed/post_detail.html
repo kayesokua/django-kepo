@@ -1,0 +1,135 @@
+{% extends "feed/base.html" %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+
+<div class="container">
+  <div class="row">
+  <div class="col-md-8 mb-3">
+      {% if messages %}
+            {% for message in messages %}
+              <div class="alert {% if message.tags %} alert-{{ message.tags }} {% endif %}" role="alert">
+              {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+    </div>
+        
+    <div class="col-md-8 card mb-4 mt-3 left top">
+   
+
+      <div class="card-body">
+ 
+
+          
+        <h1 style="text-transform:capitalize">{% block title %} {{ post.title }} {% endblock title %}</h1>
+        <p>{% if user.is_authenticated and user == post.author %}<a href="{% url 'post_update' post.author post.slug %}">Edit post</a> |
+          <a href="#" class="link-danger"><s>Delete</s></a>
+
+
+          {% else %}Posted by <a href="{% url 'post_by_user' post.author %}">{{ post.author }}</a>
+          {% endif %}| {{ post.created_on }}
+        </p>
+        <div class="card-text">
+        <a class="link-primary" data-bs-toggle="modal" data-bs-target="#enlarge_img"><img src="{{ post.img.url }}" alt="Image for {{ post.title }}"  style="width:40%; max-width:350px; height:auto; float:left; margin-right:1em" class="img-thumbnail"></a>
+
+       {{ post.content | linebreaks }}
+        </div>
+        
+
+      </div>
+    </div>
+
+    <div class="col-md-8 card mb-4  mt-3 ">
+      <div class="card-body">
+       {% if new_comment %}
+        <div class="alert alert-success" role="alert">
+          Your comment has been published!
+        </div>
+        {% endif %}
+
+        {% if error %}
+        <div class="alert alert-danger" role="alert">
+         {{error}}
+        </div>
+        {% endif %}
+
+        <!-- comments -->
+        {% if comments %}
+
+            {% with comments.count as total_comments %}
+            <h3>{{ total_comments }} comment/s</h3>
+            {% endwith %}
+          
+        {% for comment in comments %}
+        
+        <div class="comments" style="padding: 10px;">
+          <p class="lead">
+          <strong>{{ comment.commenter }}</strong> : {{ comment.body | linebreaks }}
+          </p>
+          <small>
+          {{ comment.created_on }}
+          {% if user.is_authenticated and user == comment.commenter %}   
+              <form action = "{% url 'comment_delete' post.author post.slug comment.id %}" method = "POST">
+              {% csrf_token %}
+              <button class="btn btn-secondary">Delete this comment</button>
+              </form>
+          {% endif %}
+          </small>
+           
+          
+        </div>
+        <hr class="my-2">
+
+        {% endfor %}
+         {% else %}
+           <h3>Be the first to comment!</h3>
+           {% endif %}
+        {% if user.is_authenticated %}
+            <button type="submit" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modal_comment">Leave a comment</button>
+        {% else %}
+            Sign up / Sign In to leave a comment
+        {% endif %}
+      </div>
+    </div>
+
+  </div>
+</div>
+
+    <!-- Enlarge Image -->
+    <div class="modal fade" id="enlarge_img" tabindex="-1" aria-labelledby="exampleModal" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body">
+            <img src="{{ post.img.url }}" width="100%" height="auto">
+          </div>
+        </div>
+      </div>
+    </div>
+
+     <!-- Comment Form -->
+    <ddiv class="modal fade" id="modal_comment" tabindex="-1" aria-labelledby="exampleModal" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Leave a comment as {{user.username}}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+           <form method="post">
+           
+           {% csrf_token %}
+           <div style="display:none;">{{comment_form.as_p}}</div>
+          <textarea name="body" cols="40" rows="10" required="" id="id_body"></textarea>
+          
+          </div>
+          <div class="modal-footer">
+          <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+{% endblock content %}

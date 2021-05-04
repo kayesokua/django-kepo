@@ -1,0 +1,26 @@
+{% extends "myaccount/base.html" %}
+
+{% block content %}
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-5">
+            <h2>Get started!</h2>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-5">
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endif %}
+            
+            <hr>
+            <div class="text-center">
+                Need an account? <a href="{% url 'sign_up' %}">Sign Up here</a>
+            </div>
+            <div class="text-center">
+            Forgot password? <a href="{% url 'sign_up' %}">Reset your password here</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,4 +1,4 @@
-# K.E.P.O 🤥
+# K.E.P.O 🤓
 
 ***Kepo*** is a Bahasa slang that stands for *Know Every Particular Object*, originating from the word ***Kaypoh*** (鸡婆) in Hokkien.
 Kepo is a word we can use to describe a very curious person, someone who wants to know everything, or how we may think of our relatives sometimes!
@@ -13,7 +13,7 @@ This project features:
  - My Journal: This app features a morning & evening journal forms, Calendar Display
  - My Account: This app includes basic user registration, authentication, change password, and updating account profile
  
- [Visit the demo app] (http://kepo.pythonanywhere.com/) - Feel free to use this as your journal, no superuser was created for this demo.
+ [Visit the demo app](http://kepo.pythonanywhere.com/) - Feel free to use this as your journal, no superuser was created for this demo.
  
 ## Running and Testing the Project Locally
 1. Install required packages `pip install -r requirements.txt`

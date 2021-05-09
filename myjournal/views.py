@@ -73,6 +73,7 @@ def morning_create(request):
             except ValueError:
                 return render(request, 'myjournal/morning_create.html', {'form':MorningJournalForm(), 'error':'Bad data passed in. Try again.'})
 
+# If you're using a ModelForm then you need to pass an instance of that model to update the object.
 @login_required
 def morning_update(request, morningjournal_pk):
     morningjournal = get_object_or_404(MorningJournal, pk=morningjournal_pk, author=request.user)

@@ -13,6 +13,8 @@ This project features:
  - My Journal: This app features a morning & evening journal forms, Calendar Display
  - My Account: This app includes basic user registration, authentication, change password, and updating account profile
  
+ [Visit the demo app] (http://kepo.pythonanywhere.com/) - Feel free to use this as your journal, no superuser was created for this demo.
+ 
 ## Running and Testing the Project Locally
 1. Install required packages `pip install -r requirements.txt`
 2. Initialize your database with `python3 manage.py makemigrations`
@@ -28,11 +30,10 @@ This project features:
 5. `pip install django-summernote` `pip install django-autoslug` ...etc. basically all the pip packages used in the project
 6. Repeat 2,3,4 of Running and Testing Project Locally
 
-
 ### Project Errors
-1. Unable to request user/author properly in the FEED app
-2. Unable to delete post, but can unpublish
-3. No password reset option yet
+1. Unable to delete post, but can unpublish
+2. No password reset option yet
+3. Navigation is not responsive
 
 ### Project Resources & Inspiration
 1. [Django Framework Documentation](https://www.djangoproject.com/) - 
@@ -41,3 +42,4 @@ This project features:
 4. Feed: [Django Summernote Editor](https://github.com/summernote/django-summernote)
 5. Templates: [Bootstrap 5](https://getbootstrap.com/docs/5.0/examples/)
 6. Python Anywhere [https://www.pythonanywhere.com/]
+7. Journal: [Nick Walter's ToDoWoo Project](https://github.com/zappycode/django-api-todowoo)
